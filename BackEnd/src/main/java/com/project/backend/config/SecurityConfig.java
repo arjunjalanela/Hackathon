@@ -70,7 +70,15 @@ public class SecurityConfig {
 
                         ).permitAll()
 
-                        // USER APIs
+                        // ADMIN ONLY APIs
+
+                        .requestMatchers(
+
+                                "/hotels/create"
+
+                        ).hasRole("ADMIN")
+
+                        // USER + ADMIN APIs
 
                         .requestMatchers(
 
@@ -80,7 +88,10 @@ public class SecurityConfig {
 
                                 "/payments/**"
 
-                        ).hasRole("USER")
+                        ).hasAnyRole(
+                                "USER",
+                                "ADMIN"
+                        )
 
                         // ALL OTHER APIs
 
@@ -122,6 +133,7 @@ public class SecurityConfig {
 
         DaoAuthenticationProvider provider =
                 new DaoAuthenticationProvider(customUserDetailsService);
+
 
         provider.setPasswordEncoder(
                 passwordEncoder()
