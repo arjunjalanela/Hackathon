@@ -1,6 +1,7 @@
 package com.project.backend.service;
 
 import com.project.backend.dto.HotelResponseDTO;
+import com.project.backend.dto.RoomResponseDTO;
 import com.project.backend.entities.Booking;
 import com.project.backend.entities.Hotel;
 import com.project.backend.entities.Room;
@@ -98,7 +99,74 @@ public class HotelService {
 
         return response;
     }
-    // CREATE HOTEL
+    // GET AVAILABLE ROOMS OF HOTEL
+
+    public List<RoomResponseDTO> getAvailableRooms(
+
+            Long hotelId,
+            LocalDate checkInDate,
+            LocalDate checkOutDate
+    ) {
+
+        Hotel hotel = hotelRepository.findById(hotelId)
+
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "Hotel Not Found"));
+
+        List<RoomResponseDTO> response =
+                new ArrayList<>();
+
+        for (Room room : hotel.getRooms()) {
+
+            boolean roomBooked = false;
+
+            for (Booking booking : room.getBookings()) {
+
+                boolean overlap =
+
+                        checkInDate.isBefore(
+                                booking.getCheckOutDate())
+
+                                &&
+
+                                checkOutDate.isAfter(
+                                        booking.getCheckInDate());
+
+                if (overlap) {
+
+                    roomBooked = true;
+                    break;
+                }
+            }
+
+            if (!roomBooked) {
+
+                response.add(
+
+                        RoomResponseDTO.builder()
+
+                                .roomId(room.getId())
+
+                                .roomNumber(
+                                        room.getRoomNumber())
+
+                                .roomType(
+                                        room.getRoomType())
+
+                                .price(
+                                        room.getPrice())
+
+                                .available(
+                                        room.getAvailable())
+
+                                .build()
+                );
+            }
+        }
+
+        return response;
+    }
 
     // CREATE HOTEL WITH ROOMS
 

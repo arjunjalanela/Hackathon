@@ -1,6 +1,7 @@
 package com.project.backend.controller;
 
 import com.project.backend.dto.HotelResponseDTO;
+import com.project.backend.dto.RoomResponseDTO;
 import com.project.backend.entities.Hotel;
 import com.project.backend.service.HotelService;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +49,29 @@ public class HotelController {
 
         return hotelService.searchHotels(
                 location,
+                checkInDate,
+                checkOutDate
+        );
+    }
+    // GET AVAILABLE ROOMS OF HOTEL
+
+    @GetMapping("/{hotelId}/rooms")
+
+    public List<RoomResponseDTO> getAvailableRooms(
+
+            @PathVariable Long hotelId,
+
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate checkInDate,
+
+            @RequestParam
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate checkOutDate
+    ) {
+
+        return hotelService.getAvailableRooms(
+                hotelId,
                 checkInDate,
                 checkOutDate
         );
