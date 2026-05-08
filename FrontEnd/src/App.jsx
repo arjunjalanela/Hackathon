@@ -1,5 +1,14 @@
-import { BrowserRouter, Routes, Route }
-from "react-router-dom";
+import {
+
+    BrowserRouter,
+
+    Routes,
+
+    Route
+
+} from "react-router-dom";
+
+import Header from "./components/Header";
 
 import Home from "./pages/Home";
 
@@ -16,8 +25,8 @@ from "./pages/HotelRooms";
 import MyBookings
 from "./pages/MyBookings";
 
-// import CreateHotel
-// from "./pages/CreateHotel";
+import CreateHotel
+from "./pages/CreateHotel";
 
 function App() {
 
@@ -25,42 +34,58 @@ function App() {
 
         <BrowserRouter>
 
+            <Header />
+
             <Routes>
 
                 <Route
+
                     path="/"
+
                     element={<Home />}
                 />
 
                 <Route
+
                     path="/login"
+
                     element={<Login />}
                 />
 
                 <Route
+
                     path="/register"
+
                     element={<Register />}
                 />
 
                 <Route
+
                     path="/search"
+
                     element={<SearchHotels />}
                 />
 
                 <Route
+
                     path="/rooms/:hotelId"
+
                     element={<HotelRooms />}
                 />
 
                 <Route
+
                     path="/my-bookings"
+
                     element={<MyBookings />}
                 />
 
-                {/* <Route
+                <Route
+
                     path="/create-hotel"
+
                     element={<CreateHotel />}
-                /> */}
+                />
 
             </Routes>
 

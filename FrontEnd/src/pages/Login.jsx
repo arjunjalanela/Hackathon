@@ -1,13 +1,9 @@
 import { useState } from "react";
 
-import { useNavigate } from "react-router-dom";
-
 import { loginUser }
 from "../services/AuthService";
 
 function Login() {
-
-    const navigate = useNavigate();
 
     const [email, setEmail] =
         useState("");
@@ -28,7 +24,7 @@ function Login() {
                     password
                 });
 
-            // SAVE TOKEN
+            // SAVE USER DATA
 
             localStorage.setItem(
                 "token",
@@ -52,21 +48,23 @@ function Login() {
 
             alert("Login Successful");
 
-            // ADMIN NAVIGATION
+            // ADMIN
 
             if (
                 response.role ===
                 "ROLE_ADMIN"
             ) {
 
-                navigate("/create-hotel");
+                window.location.href =
+                    "/create-hotel";
             }
 
-            // USER NAVIGATION
+            // USER
 
             else {
 
-                navigate("/search");
+                window.location.href =
+                    "/search";
             }
 
         } catch (error) {

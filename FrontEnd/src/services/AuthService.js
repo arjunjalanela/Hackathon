@@ -2,10 +2,16 @@ import API from "./api";
 
 // REGISTER
 
-export const registerUser = async (userData) => {
+export const registerUser = async (
+
+    userData
+
+) => {
 
     const response = await API.post(
+
         "/auth/register",
+
         userData
     );
 
@@ -14,12 +20,25 @@ export const registerUser = async (userData) => {
 
 // LOGIN
 
-export const loginUser = async (loginData) => {
+export const loginUser = async (
+
+    loginData
+
+) => {
 
     const response = await API.post(
+
         "/auth/login",
+
         loginData
     );
 
     return response.data;
+};
+
+// LOGOUT
+
+export const logoutUser = () => {
+
+    localStorage.clear();
 };
