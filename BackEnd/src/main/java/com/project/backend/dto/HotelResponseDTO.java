@@ -21,4 +21,6 @@ public class HotelResponseDTO {
     private long availableRooms;
 
     private long price;
+
+
 }

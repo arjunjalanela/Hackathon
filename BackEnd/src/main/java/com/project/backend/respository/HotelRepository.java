@@ -10,5 +10,11 @@ import java.util.List;
 public interface HotelRepository
         extends JpaRepository<Hotel, Long> {
 
-    List<Hotel> findByLocation(String location);
+//    List<Hotel> findByLocation(String location);
+    List<Hotel> findByLocationAndRatingGreaterThanEqual(
+
+            String location,
+
+            Long rating
+    );
 }

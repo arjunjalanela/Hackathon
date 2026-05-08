@@ -31,11 +31,12 @@ public class HotelService {
     public List<HotelResponseDTO> searchHotels(
             String location,
             LocalDate checkInDate,
-            LocalDate checkOutDate
+            LocalDate checkOutDate,
+            Long rating
     ) {
 
         List<Hotel> hotels =
-                hotelRepository.findByLocation(location);
+                hotelRepository.findByLocationAndRatingGreaterThanEqual(location,rating);
 
         List<HotelResponseDTO> response =
                 new ArrayList<>();
@@ -188,11 +189,15 @@ public class HotelService {
 
                     .hotel(hotel)
 
+
                     .build();
 
             rooms.add(room);
         }
-
+//        if(hotel.getRooms()==null) {
+//            throw new RuntimeException("Rating Required");
+//        }
+        hotel.setRating(hotel.getRating());
         hotel.setRooms(rooms);
 
         return hotelRepository.save(hotel);

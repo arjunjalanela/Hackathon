@@ -4,8 +4,12 @@ import com.project.backend.dto.HotelResponseDTO;
 import com.project.backend.dto.RoomResponseDTO;
 import com.project.backend.entities.Hotel;
 import com.project.backend.service.HotelService;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+
+import org.springframework.format.annotation.
+        DateTimeFormat;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -24,6 +28,7 @@ public class HotelController {
     @PostMapping("/create")
 
     public Hotel createHotel(
+
             @RequestBody Hotel hotel
     ) {
 
@@ -34,45 +39,71 @@ public class HotelController {
 
     @GetMapping("/search")
 
-    public List<HotelResponseDTO> searchHotels(
+    public List<HotelResponseDTO>
+    searchHotels(
 
             @RequestParam String location,
 
             @RequestParam
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            @DateTimeFormat(
+                    iso =
+                            DateTimeFormat.ISO.DATE
+            )
             LocalDate checkInDate,
 
             @RequestParam
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-            LocalDate checkOutDate
+            @DateTimeFormat(
+                    iso =
+                            DateTimeFormat.ISO.DATE
+            )
+            LocalDate checkOutDate,
+
+            @RequestParam
+            Long rating
     ) {
 
         return hotelService.searchHotels(
+
                 location,
+
                 checkInDate,
-                checkOutDate
+
+                checkOutDate,
+
+                rating
         );
     }
-    // GET AVAILABLE ROOMS OF HOTEL
+
+    // GET AVAILABLE ROOMS
 
     @GetMapping("/{hotelId}/rooms")
 
-    public List<RoomResponseDTO> getAvailableRooms(
+    public List<RoomResponseDTO>
+    getAvailableRooms(
 
             @PathVariable Long hotelId,
 
             @RequestParam
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            @DateTimeFormat(
+                    iso =
+                            DateTimeFormat.ISO.DATE
+            )
             LocalDate checkInDate,
 
             @RequestParam
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            @DateTimeFormat(
+                    iso =
+                            DateTimeFormat.ISO.DATE
+            )
             LocalDate checkOutDate
     ) {
 
         return hotelService.getAvailableRooms(
+
                 hotelId,
+
                 checkInDate,
+
                 checkOutDate
         );
     }

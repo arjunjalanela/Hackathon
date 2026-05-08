@@ -10,6 +10,17 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+
+
+//    @ExceptionHandler(RatingRequiredException.class)
+//    public ResponseEntity<?> handleRatingRequiredException(RatingRequiredException e){
+//    ErrorResponse error = ErrorResponse.builder()
+//            .status(HttpStatus.BAD_REQUEST.value())
+//            .message(e.getMessage())
+//            .build();
+//    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+//    }
+
     // HOTEL NOT FOUND
 
     @ExceptionHandler(HotelNotFoundException.class)

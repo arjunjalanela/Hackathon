@@ -5,6 +5,7 @@ package com.project.backend.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.List;
 
@@ -27,9 +28,13 @@ public class Hotel {
     private String location;
 
     private long totalRooms;
+    private long rating;
+
+
     private long price;
     @JsonIgnore
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
-
     private List<Room> rooms;
+
+
 }

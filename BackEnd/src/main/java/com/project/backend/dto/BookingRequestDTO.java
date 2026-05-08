@@ -19,4 +19,5 @@ public class BookingRequestDTO {
     private LocalDate checkInDate;
 
     private LocalDate checkOutDate;
+
 }
