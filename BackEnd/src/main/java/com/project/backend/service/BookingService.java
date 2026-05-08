@@ -3,14 +3,17 @@ package com.project.backend.service;
 import com.project.backend.dto.BookingRequestDTO;
 import com.project.backend.dto.BookingResponseDTO;
 import com.project.backend.entities.Booking;
+import com.project.backend.entities.Payment;
 import com.project.backend.entities.Room;
 import com.project.backend.entities.User;
 import com.project.backend.respository.BookingRepository;
+import com.project.backend.respository.PaymentRepository;
 import com.project.backend.respository.RoomRepository;
 import com.project.backend.respository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +27,8 @@ public class BookingService {
     private final UserRepository userRepository;
 
     private final RoomRepository roomRepository;
+
+    private final PaymentRepository paymentRepository;
 
     // BOOK ROOM
 
@@ -84,6 +89,27 @@ public class BookingService {
 
         Booking savedBooking =
                 bookingRepository.save(booking);
+
+        // CREATE PAYMENT
+
+        Payment payment = Payment.builder()
+
+                .amount(
+                        (double) savedBooking.getPrice())
+
+                .paymentMethod("UPI")
+
+                .status(
+                        Payment.PaymentStatus.SUCCESS)
+
+                .paymentTime(
+                        LocalDateTime.now())
+
+                .booking(savedBooking)
+
+                .build();
+
+        paymentRepository.save(payment);
 
         return BookingResponseDTO.builder()
 
