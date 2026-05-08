@@ -23,9 +23,7 @@ public class Booking {
 
     private LocalDate checkOutDate;
 
-    private Integer totalDays;
-
-    private Double totalPrice;
+    private int price;
 
     @Enumerated(EnumType.STRING)
 
