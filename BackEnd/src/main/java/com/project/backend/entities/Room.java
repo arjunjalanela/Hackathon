@@ -1,6 +1,7 @@
 package com.project.backend.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,6 +35,6 @@ public class Room {
     private Hotel hotel;
 
     @OneToMany(mappedBy = "room")
-
+    @JsonIgnore
     private List<Booking> bookings;
 }

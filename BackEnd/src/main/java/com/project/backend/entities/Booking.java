@@ -1,5 +1,6 @@
 package com.project.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,7 +39,7 @@ public class Booking {
     @JoinColumn(name = "room_id")
 
     private Room room;
-
+    @JsonIgnore
     @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL)
 
     private Payment payment;
