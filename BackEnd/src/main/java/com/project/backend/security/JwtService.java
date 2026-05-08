@@ -1,0 +1,129 @@
+package com.project.backend.security;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.stereotype.Service;
+
+import java.security.Key;
+import java.util.Date;
+
+@Service
+
+public class JwtService {
+
+    private final String SECRET =
+            "thisIsVerySecretKeyForJwtAuthentication123456789";
+
+    private Key getSignKey() {
+
+        return Keys.hmacShaKeyFor(
+                SECRET.getBytes()
+        );
+    }
+
+    // GENERATE TOKEN
+
+    public String generateToken(
+            String email
+    ) {
+
+        return Jwts.builder()
+
+                .setSubject(email)
+
+                .setIssuedAt(
+                        new Date()
+                )
+
+                .setExpiration(
+
+                        new Date(
+
+                                System.currentTimeMillis()
+
+                                        + 1000 * 60 * 60
+                        )
+                )
+
+                .signWith(
+                        getSignKey(),
+                        SignatureAlgorithm.HS256
+                )
+
+                .compact();
+    }
+
+    // EXTRACT EMAIL
+
+    public String extractEmail(
+            String token
+    ) {
+
+        Claims claims = Jwts.parserBuilder()
+
+                .setSigningKey(
+                        getSignKey()
+                )
+
+                .build()
+
+                .parseClaimsJws(token)
+
+                .getBody();
+
+        return claims.getSubject();
+    }
+
+    // VALIDATE TOKEN
+
+    public boolean validateToken(
+
+            String token,
+
+            String email
+    ) {
+
+        String extractedEmail =
+                extractEmail(token);
+
+        return extractedEmail.equals(email)
+
+                &&
+
+                !isTokenExpired(token);
+    }
+
+    // CHECK TOKEN EXPIRY
+
+    private boolean isTokenExpired(
+            String token
+    ) {
+
+        return extractClaims(token)
+
+                .getExpiration()
+
+                .before(new Date());
+    }
+
+    // EXTRACT CLAIMS
+
+    private Claims extractClaims(
+            String token
+    ) {
+
+        return Jwts.parserBuilder()
+
+                .setSigningKey(
+                        getSignKey()
+                )
+
+                .build()
+
+                .parseClaimsJws(token)
+
+                .getBody();
+    }
+}
