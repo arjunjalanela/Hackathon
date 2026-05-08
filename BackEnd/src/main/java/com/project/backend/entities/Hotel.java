@@ -25,9 +25,8 @@ public class Hotel {
 
     private String location;
 
-    private String description;
-
-    private Double rating;
+    private long totalRooms;
+    private long price;
 
     @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
 
