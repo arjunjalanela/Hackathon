@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { loginUser } from "../services/AuthService";
+import "../styles/Login.css";
 
 function Login() {
 
@@ -42,36 +43,32 @@ function Login() {
 
     return (
 
-        <div>
+        <div className="login-container">
+            <div className="login-box">
+                <h1>Login</h1>
 
-            <h1>Login</h1>
+                <form onSubmit={handleSubmit}>
 
-            <form onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        placeholder="Enter Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
-                <input
-                    type="email"
-                    placeholder="Enter Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
+                    <input
+                        type="password"
+                        placeholder="Enter Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
 
-                <br /><br />
+                    <button type="submit">
+                        Login
+                    </button>
 
-                <input
-                    type="password"
-                    placeholder="Enter Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-
-                <br /><br />
-
-                <button type="submit">
-                    Login
-                </button>
-
-            </form>
-
+                </form>
+            </div>
         </div>
     );
 }

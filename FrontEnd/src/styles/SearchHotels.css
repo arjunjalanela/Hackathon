@@ -1,0 +1,94 @@
+.search-container {
+    min-height: 100vh;
+    padding: 40px;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.search-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+.search-form {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 500px;
+    margin: auto;
+    backdrop-filter: blur(8px);
+}
+
+.search-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-form button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #00bcd4;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #0097a7;
+    transform: translateY(-2px);
+}
+
+.hotels-list {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.hotel-card {
+    background-color: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease;
+}
+
+.hotel-card:hover {
+    transform: translateY(-5px);
+}
+
+.hotel-card h2 {
+    margin-bottom: 10px;
+    color: #203a43;
+}
+
+.hotel-card p {
+    margin: 8px 0;
+}
+
+.hotel-card button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #203a43;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.hotel-card button:hover {
+    background-color: #16262f;
+}

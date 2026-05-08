@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { searchHotels } from "../services/HotelService";
+import "../styles/SearchHotels.css";
 
 function SearchHotels() {
 
@@ -43,109 +44,56 @@ function SearchHotels() {
 
     return (
 
-        <div style={{ padding: "20px" }}>
-
+        <div className="search-container">
             <h1>Search Hotels</h1>
 
-            <form onSubmit={handleSearch}>
-
+            <form className="search-form" onSubmit={handleSearch}>
                 <input
                     type="text"
                     placeholder="Enter Location"
                     value={location}
-                    onChange={(e) =>
-                        setLocation(e.target.value)
-                    }
+                    onChange={(e) => setLocation(e.target.value)}
                 />
-
-                <br /><br />
 
                 <input
                     type="date"
                     value={checkIn}
-                    onChange={(e) =>
-                        setCheckIn(e.target.value)
-                    }
+                    onChange={(e) => setCheckIn(e.target.value)}
                 />
-
-                <br /><br />
 
                 <input
                     type="date"
                     value={checkOut}
-                    onChange={(e) =>
-                        setCheckOut(e.target.value)
-                    }
+                    onChange={(e) => setCheckOut(e.target.value)}
                 />
-
-                <br /><br />
 
                 <button type="submit">
                     Search Hotels
                 </button>
-
             </form>
 
-            <br />
-
-            {
-
-                hotels.map((hotel) => (
-
-                    <div
-
-                        key={hotel.id}
-
-                        style={{
-                            border: "1px solid gray",
-                            padding: "15px",
-                            marginBottom: "15px",
-                            borderRadius: "10px"
-                        }}
-                    >
-
+            <div className="hotels-list">
+                {hotels.map((hotel) => (
+                    <div className="hotel-card" key={hotel.id}>
                         <h2>{hotel.name}</h2>
-
-                        <p>
-                            Location:
-                            {hotel.location}
-                        </p>
-
-                        <p>
-                            Total Rooms:
-                            {hotel.totalRooms}
-                        </p>
-
-                        <p>
-                            Available Rooms:
-                            {hotel.availableRooms}
-                        </p>
-
+                        <p>Location: {hotel.location}</p>
+                        <p>Total Rooms: {hotel.totalRooms}</p>
+                        <p>Available Rooms: {hotel.availableRooms}</p>
                         <button
-
                             onClick={() =>
-
-                                navigate(
-
-                                    `/hotel/${hotel.id}`,
-
-                                    {
-                                        state: {
-
-                                            checkIn,
-                                            checkOut
-                                        }
-                                    }
-                                )
+                                navigate(`/hotel/${hotel.id}`, {
+                                    state: {
+                                        checkIn,
+                                        checkOut,
+                                    },
+                                })
                             }
                         >
                             View Rooms
                         </button>
-
                     </div>
-                ))
-            }
-
+                ))}
+            </div>
         </div>
     );
 }

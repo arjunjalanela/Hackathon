@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { registerUser } from "../services/AuthService";
+import "../styles/Register.css";
 
 function Register() {
 
@@ -45,45 +46,37 @@ function Register() {
 
     return (
 
-        <div>
+        <div className="register-container">
+            <div className="register-box">
+                <h1>Register</h1>
 
-            <h1>Register</h1>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Enter Name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
 
-            <form onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        placeholder="Enter Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
-                <input
-                    type="text"
-                    placeholder="Enter Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
+                    <input
+                        type="password"
+                        placeholder="Enter Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
 
-                <br /><br />
-
-                <input
-                    type="email"
-                    placeholder="Enter Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <br /><br />
-
-                <input
-                    type="password"
-                    placeholder="Enter Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
-
-                <br /><br />
-
-                <button type="submit">
-                    Register
-                </button>
-
-            </form>
-
+                    <button type="submit">
+                        Register
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }
