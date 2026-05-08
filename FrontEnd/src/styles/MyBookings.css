@@ -1,0 +1,91 @@
+.bookings-container {
+    min-height: 100vh;
+    padding: 40px;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.bookings-container h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+.no-bookings {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.bookings-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 20px;
+}
+
+.booking-card {
+    background-color: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    transition: 0.3s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.booking-card h2 {
+    margin-bottom: 15px;
+    color: #1a1a2e;
+}
+
+.booking-card p {
+    margin: 8px 0;
+    font-size: 0.95rem;
+}
+
+.booking-card button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #e74c3c;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.booking-card button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+.booking-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.booking-status.confirmed {
+    background-color: #27ae60;
+    color: white;
+}
+
+.booking-status.cancelled {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.booking-status.pending {
+    background-color: #f39c12;
+    color: white;
+}

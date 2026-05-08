@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { registerUser } from "../services/AuthService";
+
 import "../styles/Register.css";
 
 function Register() {
@@ -28,13 +29,27 @@ function Register() {
                 password
             };
 
-            const response = await registerUser(data);
+            const response =
+                await registerUser(data);
 
-            console.log(response);
+            localStorage.setItem(
+                "token",
+                response.token
+            );
+
+            localStorage.setItem(
+                "role",
+                response.role
+            );
+
+            localStorage.setItem(
+                "email",
+                response.email
+            );
 
             alert("Registration Successful");
 
-            navigate("/login");
+            navigate("/search");
 
         } catch (error) {
 
@@ -47,36 +62,50 @@ function Register() {
     return (
 
         <div className="register-container">
+
             <div className="register-box">
+
                 <h1>Register</h1>
 
                 <form onSubmit={handleSubmit}>
+
                     <input
                         type="text"
                         placeholder="Enter Name"
                         value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) =>
+                            setName(e.target.value)
+                        }
                     />
 
                     <input
                         type="email"
                         placeholder="Enter Email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) =>
+                            setEmail(e.target.value)
+                        }
                     />
 
                     <input
                         type="password"
                         placeholder="Enter Password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) =>
+                            setPassword(e.target.value)
+                        }
                     />
 
                     <button type="submit">
+
                         Register
+
                     </button>
+
                 </form>
+
             </div>
+
         </div>
     );
 }

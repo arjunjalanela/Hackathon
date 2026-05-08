@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { loginUser } from "../services/AuthService";
+
 import "../styles/Login.css";
 
 function Login() {
@@ -25,9 +26,23 @@ function Login() {
                 password
             };
 
-            const response = await loginUser(data);
+            const response =
+                await loginUser(data);
 
-            console.log(response);
+            localStorage.setItem(
+                "token",
+                response.token
+            );
+
+            localStorage.setItem(
+                "role",
+                response.role
+            );
+
+            localStorage.setItem(
+                "email",
+                response.email
+            );
 
             alert("Login Successful");
 
@@ -44,7 +59,9 @@ function Login() {
     return (
 
         <div className="login-container">
+
             <div className="login-box">
+
                 <h1>Login</h1>
 
                 <form onSubmit={handleSubmit}>
@@ -53,22 +70,30 @@ function Login() {
                         type="email"
                         placeholder="Enter Email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) =>
+                            setEmail(e.target.value)
+                        }
                     />
 
                     <input
                         type="password"
                         placeholder="Enter Password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) =>
+                            setPassword(e.target.value)
+                        }
                     />
 
                     <button type="submit">
+
                         Login
+
                     </button>
 
                 </form>
+
             </div>
+
         </div>
     );
 }

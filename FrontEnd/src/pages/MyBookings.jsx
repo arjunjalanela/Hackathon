@@ -6,6 +6,7 @@ import {
     deleteBooking
 
 } from "../services/BookingService";
+import "../styles/MyBookings.css";
 
 function MyBookings() {
 
@@ -56,128 +57,53 @@ function MyBookings() {
 
     return (
 
-        <div style={{ padding: "20px" }}>
-
+        <div className="bookings-container">
             <h1>My Bookings</h1>
 
-            {
+            {bookings.length === 0 && (
+                <h3 className="no-bookings">
+                    No Bookings Found
+                </h3>
+            )}
 
-                bookings.length === 0 && (
-
-                    <h3>No Bookings Found</h3>
-                )
-            }
-
-            {
-
-                bookings.map((booking) => (
-
+            <div className="bookings-list">
+                {bookings.map((booking) => (
                     <div
-
+                        className="booking-card"
                         key={booking.bookingId}
-
-                        style={{
-
-                            border: "1px solid gray",
-
-                            padding: "15px",
-
-                            marginBottom: "15px",
-
-                            borderRadius: "10px"
-                        }}
                     >
-
-                        <h2>
-
-                            {
-                                booking.hotelName
-                            }
-
-                        </h2>
-
+                        <h2>{booking.hotelName}</h2>
                         <p>
-
-                            Room Number:
-
-                            {
-                                booking.roomNumber
-                            }
-
+                            Room Number: {booking.roomNumber}
+                        </p>
+                        <p>
+                            Price: ₹{booking.price}
+                        </p>
+                        <p>
+                            Check In: {booking.checkInDate}
+                        </p>
+                        <p>
+                            Check Out: {booking.checkOutDate}
+                        </p>
+                        <p>
+                            Status: {booking.status}
                         </p>
 
-                        <p>
-
-                            Room Type:
-
-                            {
-                                booking.roomType
-                            }
-
-                        </p>
-
-                        <p>
-
-                            Price:
-
-                            ₹{
-                                booking.price
-                            }
-
-                        </p>
-
-                        <p>
-
-                            Check In:
-
-                            {
-                                booking.checkIn
-                            }
-
-                        </p>
-
-                        <p>
-
-                            Check Out:
-
-                            {
-                                booking.checkOut
-                            }
-
-                        </p>
-
-                        <p>
-
-                            Status:
-
-                            {
-                                booking.status
-                            }
-
-                        </p>
-
-                        {
-
-                            booking.status ===
-                            "BOOKED" && (
-
-                                <button
-
-                                    onClick={() =>
-                                        handleCancel(
-                                            booking.bookingId
-                                        )
-                                    }
-                                >
-                                    Cancel Booking
-                                </button>
-                            )
-                        }
-
+                        {booking.status ===
+                            "CONFIRMED" && (
+                            <button
+                                onClick={() =>
+                                    handleCancel(
+                                        booking.bookingId
+                                    )
+                                }
+                            >
+                                Cancel Booking
+                            </button>
+                        )}
                     </div>
-                ))
-            }
-
+                ))}
+            </div>
         </div>
     );
 }

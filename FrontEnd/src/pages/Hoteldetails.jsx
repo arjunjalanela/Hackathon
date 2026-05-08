@@ -20,6 +20,8 @@ import {
 
 } from "../services/BookingService";
 
+import "../styles/Hoteldetails.css";
+
 function HotelDetails() {
 
     const { id } = useParams();
@@ -65,7 +67,12 @@ function HotelDetails() {
         try {
 
             const data =
-                await getRoomsByHotel(id);
+                // await getRoomsByHotel(id);
+                await getRoomsByHotel(
+                id,
+                checkIn,
+                checkOut
+            );
 
             setRooms(data);
 
@@ -112,88 +119,46 @@ function HotelDetails() {
 
     return (
 
-        <div style={{ padding: "20px" }}>
-
+        <div className="hotel-details-container">
             <h1>{hotel.name}</h1>
 
-            <p>
-                Location:
-                {hotel.location}
-            </p>
+            <div className="hotel-info">
+                <p>Location: {hotel.location}</p>
+                <p>Check In: {checkIn}</p>
+                <p>Check Out: {checkOut}</p>
+            </div>
 
-            <p>
-                Check In:
-                {checkIn}
-            </p>
-
-            <p>
-                Check Out:
-                {checkOut}
-            </p>
-
-            <hr />
-
-            <h2>Rooms</h2>
-
-            {
-
-                rooms.map((room) => (
-
-                    <div
-
-                        key={room.id}
-
-                        style={{
-                            border: "1px solid gray",
-                            padding: "15px",
-                            marginBottom: "15px",
-                            borderRadius: "10px"
-                        }}
-                    >
-
-                        <h3>
-                            Room Number:
-                            {room.roomNumber}
-                        </h3>
-
-                        <p>
-                            Type:
-                            {room.roomType}
-                        </p>
-
-                        <p>
-                            Price:
-                            ₹{room.price}
-                        </p>
-
-                        <p>
-                            Available:
-                            {
-                                room.available
-                                    ? "Yes"
-                                    : "No"
-                            }
-                        </p>
-
-                        {
-
-                            room.available && (
-
-                                <button
-
-                                    onClick={() =>
-                                        handleBooking(room.id)
-                                    }
-                                >
-                                    Book Room
-                                </button>
-                            )
-                        }
-
-                    </div>
-                ))
-            }
-
+            <div className="rooms-section">
+                <h2>Rooms</h2>
+                <div className="rooms-grid">
+                    {rooms.length > 0 ? (
+                        rooms.map((room) => (
+                            <div className="room-card" key={room.id}>
+                                <h3>Room {room.roomNumber}</h3>
+                                <p>Type: {room.roomType}</p>
+                                <p>Price: ₹{room.price}</p>
+                                <p>
+                                    Available:
+                                    {room.available ? "Yes" : "No"}
+                                </p>
+                                {room.available && (
+                                    <button
+                                        onClick={() =>
+                                            handleBooking(room.id)
+                                        }
+                                    >
+                                        Book Room
+                                    </button>
+                                )}
+                            </div>
+                        ))
+                    ) : (
+                        <div className="no-rooms">
+                            No rooms available
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

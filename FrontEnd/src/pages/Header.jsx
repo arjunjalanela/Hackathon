@@ -1,131 +1,63 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate }
+from "react-router-dom";
+import "../styles/Header.css";
 
 function Header() {
 
     const navigate = useNavigate();
 
-    const token = localStorage.getItem("token");
+    const token =
+        localStorage.getItem("token");
+
+    const role =
+        localStorage.getItem("role");
 
     const handleLogout = () => {
 
         localStorage.removeItem("token");
+
+        localStorage.removeItem("role");
+
+        localStorage.removeItem("email");
+
+        localStorage.removeItem("userId");
 
         navigate("/login");
     };
 
     return (
 
-        <div
-
-            style={{
-
-                display: "flex",
-
-                justifyContent: "space-between",
-
-                alignItems: "center",
-
-                padding: "15px",
-
-                backgroundColor: "#222",
-
-                color: "white"
-            }}
-        >
-
-            <div>
-
+        <div className="header">
+            <div className="header-logo">
                 <h2>Hotel Booking</h2>
-
             </div>
 
-            <div>
+            <div className="header-nav">
+                <Link to="/">Home</Link>
+                <Link to="/search">Search Hotels</Link>
 
-                <Link
-                    to="/"
-                    style={{
-                        color: "white",
-                        marginRight: "15px"
-                    }}
-                >
-                    Home
-                </Link>
+                {token && (
+                    <Link to="/my-bookings">
+                        My Bookings
+                    </Link>
+                )}
 
-                <Link
-                    to="/search"
-                    style={{
-                        color: "white",
-                        marginRight: "15px"
-                    }}
-                >
-                    Search Hotels
-                </Link>
+                {role === "ROLE_ADMIN" && (
+                    <Link to="/admin">Admin Panel</Link>
+                )}
 
-                {
-
-                    token && (
-
-                        <Link
-                            to="/my-bookings"
-                            style={{
-                                color: "white",
-                                marginRight: "15px"
-                            }}
-                        >
-                            My Bookings
+                {!token ? (
+                    <>
+                        <Link to="/login">Login</Link>
+                        <Link to="/register">
+                            Register
                         </Link>
-                    )
-                }
-
-                {
-
-                    !token ? (
-
-                        <>
-
-                            <Link
-                                to="/login"
-                                style={{
-                                    color: "white",
-                                    marginRight: "15px"
-                                }}
-                            >
-                                Login
-                            </Link>
-
-                            <Link
-                                to="/register"
-                                style={{
-                                    color: "white"
-                                }}
-                            >
-                                Register
-                            </Link>
-
-                        </>
-
-                    ) : (
-
-                        <button
-
-                            onClick={handleLogout}
-
-                            style={{
-
-                                padding: "8px 15px",
-
-                                border: "none",
-
-                                cursor: "pointer",
-
-                                borderRadius: "5px"
-                            }}
-                        >
-                            Logout
-                        </button>
-                    )
-                }
-
+                    </>
+                ) : (
+                    <button onClick={handleLogout}>
+                        Logout
+                    </button>
+                )}
             </div>
         </div>
     );

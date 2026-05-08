@@ -1,53 +1,64 @@
-import API from "./api";
+import api from "./api";
+
+// GET HOTEL BY ID
+
+export const getHotelById = async (hotelId) => {
+
+    const response = await api.get(
+
+        `/hotels/${hotelId}`
+    );
+
+    return response.data;
+};
 
 // SEARCH HOTELS
 
 export const searchHotels = async (
 
     location,
-    checkIn,
-    checkOut
+    checkInDate,
+    checkOutDate
 
 ) => {
 
-    const res = await API.get(
+    const response = await api.get(
 
-        `/hotels/search`,
+        "/hotels/search",
 
         {
             params: {
                 location,
-                checkIn,
-                checkOut
+                checkInDate,
+                checkOutDate
             }
         }
     );
 
-    return res.data;
+    return response.data;
 };
 
-// GET HOTEL BY ID
+// GET AVAILABLE ROOMS
 
-export const getHotelById = async (id) => {
+export const getRoomsByHotel = async (
 
-    const res = await API.get(
+    hotelId,
+    checkInDate,
+    checkOutDate
 
-        `/hotels/${id}`
+) => {
 
+    const response = await api.get(
+
+        `/hotels/${hotelId}/rooms`,
+
+        {
+            params: {
+                checkInDate,
+                checkOutDate
+            }
+        }
     );
 
-    return res.data;
-};
-
-// GET ROOMS OF HOTEL
-
-export const getRoomsByHotel = async (hotelId) => {
-
-    const res = await API.get(
-
-        `/hotels/${hotelId}/rooms`
-
-    );
-
-    return res.data;
+    return response.data;
 };

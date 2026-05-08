@@ -1,49 +1,60 @@
-import API from "./api";
+import api from "./api";
 
 // CREATE BOOKING
 
 export const createBooking = async (
 
     roomId,
-    checkIn,
-    checkOut
+    checkInDate,
+    checkOutDate
 
 ) => {
 
-    const res = await API.post(
+    const userId =
+        localStorage.getItem("userId");
 
-        "/bookings",
+    const response = await api.post(
+
+        "/bookings/book",
 
         {
+            userId,
             roomId,
-            checkIn,
-            checkOut
+            checkInDate,
+            checkOutDate
         }
     );
 
-    return res.data;
+    return response.data;
 };
 
-// GET MY BOOKINGS
+// GET USER BOOKINGS
 
 export const getMyBookings = async () => {
 
-    const res = await API.get(
+    const userId =
+        localStorage.getItem("userId");
 
-        "/bookings/my"
+    const response = await api.get(
+
+        `/bookings/user/${userId}`
     );
 
-    return res.data;
+    return response.data;
 };
 
 // CANCEL BOOKING
 
-export const deleteBooking = async (id) => {
+export const deleteBooking = async (
 
-    const res = await API.delete(
+    bookingId
 
-        `/bookings/${id}`
+) => {
+
+    const response = await api.delete(
+
+        `/bookings/cancel/${bookingId}`
     );
 
-    return res.data;
+    return response.data;
 };

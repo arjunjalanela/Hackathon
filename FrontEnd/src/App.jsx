@@ -1,4 +1,10 @@
-import { Routes, Route } from "react-router-dom";
+import {
+
+    Routes,
+    Route,
+    Navigate
+
+} from "react-router-dom";
 
 import Header from "./pages/Header";
 
@@ -8,6 +14,18 @@ import Register from "./pages/Register";
 import SearchHotels from "./pages/SearchHotels";
 import HotelDetails from "./pages/HotelDetails";
 import MyBookings from "./pages/MyBookings";
+
+// PROTECTED ROUTE
+
+function ProtectedRoute({ children }) {
+
+    const token =
+        localStorage.getItem("token");
+
+    return token
+        ? children
+        : <Navigate to="/login" />;
+}
 
 function App() {
 
@@ -35,18 +53,45 @@ function App() {
                 />
 
                 <Route
+
                     path="/search"
-                    element={<SearchHotels />}
+
+                    element={
+
+                        <ProtectedRoute>
+
+                            <SearchHotels />
+
+                        </ProtectedRoute>
+                    }
                 />
 
                 <Route
+
                     path="/hotel/:id"
-                    element={<HotelDetails />}
+
+                    element={
+
+                        <ProtectedRoute>
+
+                            <HotelDetails />
+
+                        </ProtectedRoute>
+                    }
                 />
 
                 <Route
+
                     path="/my-bookings"
-                    element={<MyBookings />}
+
+                    element={
+
+                        <ProtectedRoute>
+
+                            <MyBookings />
+
+                        </ProtectedRoute>
+                    }
                 />
 
             </Routes>
